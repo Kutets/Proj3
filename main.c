@@ -26,7 +26,7 @@ int main() {
     fgets(entrada, sizeof(entrada), stdin);
     int opcao = atoi(entrada);
 
-    if (opcao < 1 || opcao > 10) {
+    if (opcao < 1 || opcao > 15) {
       printf("Opção inválida. Tente novamente.\n");
       continue; // Volta para o início do loop
     }
@@ -119,10 +119,16 @@ int main() {
           int prioridade;
           printf("Digite o nome do arquivo para exportar as tarefas: ");
           scanf("%s", TarefasPrioridade);
-
           exportarPrioridade(&lista, prioridade, TarefasPrioridade);
+          break;
         }
       case 10:
+      if (lista.qtd > 0){
+
+        exportarPorCategoria(&lista, "tarefas_por_categoria.txt");
+        break;
+      }
+      case 15:
         sair = 1;
         break;
     }
