@@ -134,7 +134,7 @@ int deletarTarefa(ListaDeTarefas *lt, int indice) {
   return 1;
 }
 
-// Imprime a tarefa selecionada para ed
+// Imprime a tarefa selecionada
 void printTarefa(Tarefa *tarefa) {
   printf("Prioridade: %d\n", tarefa->prioridade);
   printf("Categoria: %s\n", tarefa->categoria);
@@ -142,7 +142,7 @@ void printTarefa(Tarefa *tarefa) {
   printf("Estado: %d\n", (int)tarefa->estado);
 }
 
-// Editar tarefa
+// 
 void editarTarefa(ListaDeTarefas *lt, int indice) {
   if (indice >= 0 && indice < lt->qtd) {
     Tarefa *tarefa = &(lt->tarefas[indice]);
@@ -208,4 +208,33 @@ void exportarPrioridade(ListaDeTarefas *lt, int prioridade, const char *TarefasP
 
   fclose(arquivo);
   printf("Tarefas exportadas com sucesso para %s.\n", TarefasPrioridade);
+}
+
+// Exporta as tarefas por categoria 
+void exportarPorCategoria(ListaDeTarefas *lista, const char *nomeArquivo) {
+    if (lista->qtd == 0) {
+        printf("A lista de tarefas está vazia. Nada para exportar.\n");
+        return;
+    }
+
+    // Ordenar a lista por prioridade
+    qsort(lista->tarefas, lista->qtd, sizeof(Tarefa), compararTarefas);
+
+    FILE *arquivo = fopen(nomeArquivo, "w");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo para escrita");
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(arquivo, "Categoria\tPrioridade\tDescrição\n");
+
+    for (int i = 0; i < lista->qtd; i++) {
+        fprintf(arquivo, "%s\t%d\t%s\n",
+                lista->tarefas[i].categoria,
+                lista->tarefas[i].prioridade,
+                lista->tarefas[i].descricao);
+    }
+
+    fclose(arquivo);
+    printf("Tarefas exportadas por categoria com sucesso para %s\n", nomeArquivo);
 }

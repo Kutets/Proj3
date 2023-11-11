@@ -36,4 +36,5 @@ void listarEstado(ListaDeTarefas *lt, EstadoTarefa estado);
 void listarCategoria(ListaDeTarefas *lt, const char *categoria);
 void listarCatEPrio(ListaDeTarefas *lt, int prioridade, const char *categoria);
 void exportarPrioridade(ListaDeTarefas *lt, int prioridade, const char *TarefasPrioridade);
+void exportarPorCategoria(ListaDeTarefas *lista, const char *nomeArquivo);
 #endif // PROJET_1_BIBLIOTECA_H
