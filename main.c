@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "biblioteca.h"
 
 int main() {
@@ -15,16 +16,17 @@ int main() {
     printf("2. Deletar Tarefa\n");
     printf("3. Listar por prioridade\n");
     printf("4. Print todas as tarefas\n");
-    printf("5. Listar por Estado da tarefa");
+    printf("5. Print por estado\n");
     printf("6. Editar Tarefas\n");
-    printf("5. Sair\n");
+    printf("7. Print por categoria\n");
+    printf("10. Sair\n");
     printf("Escolha uma opção: ");
 
     char entrada[100];
     fgets(entrada, sizeof(entrada), stdin);
     int opcao = atoi(entrada);
 
-    if (opcao < 1 || opcao > 5) {
+    if (opcao < 1 || opcao > 10) {
       printf("Opção inválida. Tente novamente.\n");
       continue; // Volta para o início do loop
     }
@@ -87,6 +89,15 @@ int main() {
           printf("A lista de tarefas está vazia. Nada para editar.\n");
         }
         break;
+      case 7:
+      if (lista.qtd > 0){
+        char categoriaEscolhida[50];
+        printf("Digite a categoria das tarefas que deseja listar: ");
+        fgets(categoriaEscolhida, sizeof(categoriaEscolhida), stdin);
+        categoriaEscolhida[strlen(categoriaEscolhida) - 1] = '\0'; // Remove a quebra de linha do final
+        listarCategoria(&lista, categoriaEscolhida);
+        break;
+      }
       case 10:
         sair = 1;
         break;
