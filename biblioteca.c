@@ -50,6 +50,16 @@ void cadastrarTarefa(ListaDeTarefas *lt) {
 }
 
 
+// Função para listar tarefas com uma prioridade específica
+void listarPrioridade(ListaDeTarefas *lt, int prioridade) {
+  for (int i = 0; i < lt->qtd; i++) {
+    if (lt->tarefas[i].prioridade == prioridade) {
+      printTarefa(&(lt->tarefas[i]));
+      printf("\n");
+    }
+  }
+}
+
 
 
 // Compara as tarefas através da prioridade
@@ -64,7 +74,6 @@ void listarTarefas(ListaDeTarefas lt) {
     return;
   }
 
-  printf("Tarefas ordenadas por prioridade:\n");
   qsort(lt.tarefas, lt.qtd, sizeof(Tarefa), compararTarefas);
 
   for (int i = 0; i < lt.qtd; i++) {
@@ -90,13 +99,14 @@ int deletarTarefa(ListaDeTarefas *lt, int indice) {
   return 1;
 }
 
-// Imprime a tarefa selecionada para edição
+// Imprime a tarefa selecionada para ed
 void printTarefa(Tarefa *tarefa) {
   printf("Prioridade: %d\n", tarefa->prioridade);
   printf("Categoria: %s\n", tarefa->categoria);
   printf("Descrição: %s\n", tarefa->descricao);
   printf("Estado: %d\n", (int)tarefa->estado);
 }
+
 // Editar tarefa
 void editarTarefa(ListaDeTarefas *lt, int indice) {
   if (indice >= 0 && indice < lt->qtd) {

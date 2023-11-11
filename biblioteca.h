@@ -31,4 +31,5 @@ void salvarLista(ListaDeTarefas lt, const char *tarefas);
 void carregarLista(ListaDeTarefas *lt, const char *tarefas);
 void editarTarefa(ListaDeTarefas *lt, int indice);
 void printTarefa(Tarefa *tarefa);
+void listarPrioridade(ListaDeTarefas *lt, int prioridade);
 #endif // PROJET_1_BIBLIOTECA_H
