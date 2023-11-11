@@ -55,6 +55,7 @@ int main() {
         }
         break;
       case 3:
+        
         if (lista.qtd > 0) {
           int prioridadeEscolhida;
           printf("Digite a prioridade das tarefas que deseja listar: ");
@@ -111,6 +112,15 @@ int main() {
           getchar(); // Limpa o caractere de nova linha pendente
           listarCatEPrio(&lista, prioridade, categoria);
           break;
+        }
+      case 9:
+        if (lista.qtd > 0){
+          char TarefasPrioridade[50];
+          int prioridade;
+          printf("Digite o nome do arquivo para exportar as tarefas: ");
+          scanf("%s", TarefasPrioridade);
+
+          exportarPrioridade(&lista, prioridade, TarefasPrioridade);
         }
       case 10:
         sair = 1;

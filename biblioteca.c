@@ -188,3 +188,24 @@ void editarTarefa(ListaDeTarefas *lt, int indice) {
     printf("Índice inválido. Não foi possível editar a tarefa.\n");
   }
 }
+
+// Função para exportar tarefas com uma prioridade específica para um arquivo
+void exportarPrioridade(ListaDeTarefas *lt, int prioridade, const char *TarefasPrioridade) {
+  FILE *arquivo = fopen(TarefasPrioridade, "w");
+
+  if (arquivo == NULL) {
+    printf("Erro ao criar o arquivo %s.\n", TarefasPrioridade);
+    return;
+  }
+
+  fprintf(arquivo, "Tarefas com prioridade %d:\n", prioridade);
+  for (int i = 0; i < lt->qtd; i++) {
+    if (lt->tarefas[i].prioridade == prioridade) {
+      fprintf(arquivo, "%d, %s, %d, %s\n", lt->tarefas[i].prioridade, lt->tarefas[i].categoria,
+              (int)lt->tarefas[i].estado, lt->tarefas[i].descricao);
+    }
+  }
+
+  fclose(arquivo);
+  printf("Tarefas exportadas com sucesso para %s.\n", TarefasPrioridade);
+}
