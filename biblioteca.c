@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "biblioteca.h"
 
 // Função de atualizar a lista toda vez que ela for usada
@@ -38,10 +39,8 @@ void cadastrarTarefa(ListaDeTarefas *lt) {
     printf("Digite a descrição da tarefa: ");
     fgets(novaTarefa.descricao, sizeof(novaTarefa.descricao), stdin);
     novaTarefa.descricao[strlen(novaTarefa.descricao) - 1] = '\0'; 
-    printf("Digite o estado desta tarefa: ");
-    fgets(novaTarefa.estado, sizeof(novaTarefa.estado), stdin);
-    novaTarefa.estado[strlen(novaTarefa.estado) - 1] = '\0'; 
-    // Remove o caractere de nova linha
+    printf("Digite o estado da tarefa (1 para Concluído, 2 para Em Andamento, 3 para Não Concluído): ");
+    scanf("%d", (int*)&novaTarefa.estado);
     lt->tarefas[lt->qtd] = novaTarefa;
     lt->qtd++;
     printf("Tarefa cadastrada com sucesso!\n");
@@ -49,6 +48,10 @@ void cadastrarTarefa(ListaDeTarefas *lt) {
     printf("A lista de tarefas está cheia. Não é possível cadastrar mais tarefas.\n");
   }
 }
+
+
+
+
 // Compara as tarefas através da prioridade
 int compararTarefas(const void *a, const void *b) {
   return ((Tarefa *)a)->prioridade - ((Tarefa *)b)->prioridade;
@@ -65,7 +68,7 @@ void listarTarefas(ListaDeTarefas lt) {
   qsort(lt.tarefas, lt.qtd, sizeof(Tarefa), compararTarefas);
 
   for (int i = 0; i < lt.qtd; i++) {
-    printf("Tarefa %d - Prioridade %d: %s - %s\n", i, lt.tarefas[i].prioridade, lt.tarefas[i].categoria, lt.tarefas[i].descricao);
+    printf("Tarefa %d - Prioridade %d: %s - %s - %d\n", i, lt.tarefas[i].prioridade, lt.tarefas[i].categoria, lt.tarefas[i].descricao, lt.tarefas[i].estado);
   }
 }
 
@@ -87,5 +90,56 @@ int deletarTarefa(ListaDeTarefas *lt, int indice) {
   return 1;
 }
 
+// Imprime a tarefa selecionada para edição
+void printTarefa(Tarefa *tarefa) {
+  printf("Prioridade: %d\n", tarefa->prioridade);
+  printf("Categoria: %s\n", tarefa->categoria);
+  printf("Descrição: %s\n", tarefa->descricao);
+  printf("Estado: %d\n", (int)tarefa->estado);
+}
+// Editar tarefa
+void editarTarefa(ListaDeTarefas *lt, int indice) {
+  if (indice >= 0 && indice < lt->qtd) {
+    Tarefa *tarefa = &(lt->tarefas[indice]);
 
+    printf("Escolha o campo para editar:\n");
+    printf("1. Prioridade\n");
+    printf("2. Categoria\n");
+    printf("3. Descrição\n");
+    printf("4. Estado\n");
 
+    int escolha;
+    printf("Digite o número correspondente ao campo desejado: ");
+    scanf("%d", &escolha);
+
+    switch (escolha) {
+      case 1:
+        printf("Digite a nova prioridade da tarefa: ");
+        scanf("%d", &tarefa->prioridade);
+        break;
+      case 2:
+        printf("Digite a nova categoria da tarefa: ");
+        getchar(); // Limpa o caractere de nova linha pendente
+        fgets(tarefa->categoria, sizeof(tarefa->categoria), stdin);
+        tarefa->categoria[strlen(tarefa->categoria) - 1] = '\0';
+        break;
+      case 3:
+        printf("Digite a nova descrição da tarefa: ");
+        getchar(); // Limpa o caractere de nova linha pendente
+        fgets(tarefa->descricao, sizeof(tarefa->descricao), stdin);
+        tarefa->descricao[strlen(tarefa->descricao) - 1] = '\0';
+        break;
+      case 4:
+        printf("Digite o novo estado da tarefa (1 para Concluído, 2 para Em Andamento, 3 para Não Concluído): ");
+        scanf("%d", (int*)&tarefa->estado);
+        break;
+      default:
+        printf("Escolha inválida. Nenhum campo foi alterado.\n");
+        return;
+    }
+
+    printf("Tarefa editada com sucesso!\n");
+  } else {
+    printf("Índice inválido. Não foi possível editar a tarefa.\n");
+  }
+}
