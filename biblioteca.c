@@ -211,7 +211,7 @@ void exportarPrioridade(ListaDeTarefas *lt, int prioridade, const char *TarefasP
 }
 
 // Exporta as tarefas por categoria 
-void exportarPorCategoria(ListaDeTarefas *lista, const char *nomeArquivo) {
+void exportarPorCategoria(ListaDeTarefas *lista, const char *TarefasCategoria) {
     if (lista->qtd == 0) {
         printf("A lista de tarefas está vazia. Nada para exportar.\n");
         return;
@@ -220,7 +220,7 @@ void exportarPorCategoria(ListaDeTarefas *lista, const char *nomeArquivo) {
     // Ordenar a lista por prioridade
     qsort(lista->tarefas, lista->qtd, sizeof(Tarefa), compararTarefas);
 
-    FILE *arquivo = fopen(nomeArquivo, "w");
+    FILE *arquivo = fopen(TarefasCategoria, "w");
     if (arquivo == NULL) {
         perror("Erro ao abrir o arquivo para escrita");
         exit(EXIT_FAILURE);
@@ -236,5 +236,32 @@ void exportarPorCategoria(ListaDeTarefas *lista, const char *nomeArquivo) {
     }
 
     fclose(arquivo);
-    printf("Tarefas exportadas por categoria com sucesso para %s\n", nomeArquivo);
+    printf("Tarefas exportadas por categoria com sucesso para %s\n", TarefasCategoria);
+}
+// Exportar por Prioridade e categoria
+void exportarPorPrioridadeECategoria(ListaDeTarefas *lista, int prioridade, const char *categoria, const char *CatPrio) {
+    if (lista->qtd == 0) {
+        printf("A lista de tarefas está vazia. Nada para exportar.\n");
+        return;
+    }
+
+    FILE *arquivo = fopen(CatPrio, "w");
+    if (arquivo == NULL) {
+        perror("Erro ao abrir o arquivo para escrita");
+    }
+
+    fprintf(arquivo, "Categoria\tPrioridade\tDescrição\n");
+
+    for (int i = 0; i < lista->qtd; i++) {
+        if ((prioridade == -1 || lista->tarefas[i].prioridade == prioridade) &&
+            (categoria == NULL || strcmp(lista->tarefas[i].categoria, categoria) == 0)) {
+            fprintf(arquivo, "%s\t%d\t%s\n",
+                    lista->tarefas[i].categoria,
+                    lista->tarefas[i].prioridade,
+                    lista->tarefas[i].descricao);
+        }
+    }
+
+    fclose(arquivo);
+    printf("Tarefas exportadas por prioridade e categoria com sucesso para %s\n", CatPrio);
 }

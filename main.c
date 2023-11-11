@@ -19,7 +19,11 @@ int main() {
     printf("5. Print por estado\n");
     printf("6. Editar Tarefas\n");
     printf("7. Print por categoria\n");
-    printf("10. Sair\n");
+    printf("8. Print pela prioridade numa categoria\n");
+    printf("9. Exportar Tarefas por prioridade\n");
+    printf("10.  Exportar Tarefas por categoria\n");
+    printf("11. Exporta por prioridade numa categori\n");
+    printf("12. Sair\n");
     printf("Escolha uma opção: ");
 
     char entrada[100];
@@ -55,7 +59,6 @@ int main() {
         }
         break;
       case 3:
-        
         if (lista.qtd > 0) {
           int prioridadeEscolhida;
           printf("Digite a prioridade das tarefas que deseja listar: ");
@@ -124,11 +127,21 @@ int main() {
         }
       case 10:
       if (lista.qtd > 0){
-
         exportarPorCategoria(&lista, "tarefas_por_categoria.txt");
         break;
       }
-      case 15:
+      case 11:
+      if (lista.qtd > 0){
+        char categoria[50];
+        printf("Digite a categoria das tarefas que deseja listar: ");
+        fgets(categoria, sizeof(categoria), stdin);
+        int prioridade;
+        printf("Digite a prioridade das tarefas que deseja listar: ");
+        scanf("%d", &prioridade);
+        exportarPorPrioridadeECategoria(&lista, prioridade, categoria, "tarefas_por_prioridade_e_categoria.txt");
+        break;
+      }
+      case 12:
         sair = 1;
         break;
     }
