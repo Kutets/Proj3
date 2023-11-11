@@ -105,6 +105,17 @@ void listarCategoria(ListaDeTarefas *lt, const char *categoria) {
   }
 }
 
+// Função para listar tarefas com uma prioridade e categoria específicas
+void listarCatEPrio(ListaDeTarefas *lt, int prioridade, const char *categoria) {
+  printf("Tarefas com prioridade %d e categoria %s:\n", prioridade, categoria);
+  for (int i = 0; i < lt->qtd; i++) {
+    if (lt->tarefas[i].prioridade == prioridade && strcmp(lt->tarefas[i].categoria, categoria) == 0) {
+      printTarefa(&(lt->tarefas[i]));
+      printf("\n");
+    }
+  }
+}
+
 
 
 // Deletar a tarefa através do índice indicado ao listar as tarefas criadas

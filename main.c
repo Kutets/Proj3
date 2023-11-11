@@ -98,6 +98,20 @@ int main() {
         listarCategoria(&lista, categoriaEscolhida);
         break;
       }
+      case 8:
+      if (lista.qtd > 0){
+          char categoria[50];
+          int prioridade;
+          printf("Digite a categoria das tarefas que deseja listar: ");
+          fgets(categoria, sizeof(categoria), stdin);
+          categoria[strlen(categoria) - 1] = '\0';
+          // Imprime as tarefas com uma prioridade e categoria escolhidas pelo usuário
+          printf("Digite a prioridade das tarefas que deseja listar: ");
+          scanf("%d", &prioridade);
+          getchar(); // Limpa o caractere de nova linha pendente
+          listarCatEPrio(&lista, prioridade, categoria);
+          break;
+        }
       case 10:
         sair = 1;
         break;
