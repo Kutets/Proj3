@@ -15,6 +15,7 @@ int main() {
     printf("2. Deletar Tarefa\n");
     printf("3. Listar por prioridade\n");
     printf("4. Print todas as tarefas\n");
+    printf("5. Listar por Estado da tarefa");
     printf("6. Editar Tarefas\n");
     printf("5. Sair\n");
     printf("Escolha uma opção: ");
@@ -66,6 +67,14 @@ int main() {
         if (lista.qtd > 0){
           printf("Todas as tarefas\n");
           listarTarefas(lista);
+        }
+      break;
+      case 5:
+        if (lista.qtd > 0){
+          int estadoEscolhido;
+          printf("Digite o estado das tarefas que deseja listar (1 para Concluído, 2 para Em Andamento, 3 para Não Concluído): ");
+          scanf("%d", &estadoEscolhido);
+          listarEstado(&lista, (EstadoTarefa)estadoEscolhido);
         }
       break;
       case 6:
