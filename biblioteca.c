@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "biblioteca.h"
 
 // Função de atualizar a lista toda vez que ela for usada
@@ -72,7 +73,7 @@ void listarEstado(ListaDeTarefas *lt, EstadoTarefa estado) {
 
 
 
-// Compara as tarefas através da prioridade
+// Compara a prioridade das tarefas
 int compararTarefas(const void *a, const void *b) {
   return ((Tarefa *)a)->prioridade - ((Tarefa *)b)->prioridade;
 }
@@ -88,6 +89,19 @@ void listarTarefas(ListaDeTarefas lt) {
 
   for (int i = 0; i < lt.qtd; i++) {
     printf("Tarefa %d - Prioridade %d: %s - %s - %d\n", i, lt.tarefas[i].prioridade, lt.tarefas[i].categoria, lt.tarefas[i].descricao, lt.tarefas[i].estado);
+  }
+}
+
+// Função para listar tarefas com uma categoria específica e ordenadas por prioridade
+void listarCategoria(ListaDeTarefas *lt, const char *categoria) {
+  // Ordena as tarefas por prioridade da maior para a menor
+  qsort(lt->tarefas, lt->qtd, sizeof(Tarefa), compararTarefas);
+  printf("Tarefas com categoria %s\n", categoria);
+  for (int i = 0; i < lt->qtd; i++) {
+    if (strcmp(lt->tarefas[i].categoria, categoria) == 0) {
+      printTarefa(&(lt->tarefas[i]));
+      printf("\n");
+    }
   }
 }
 
