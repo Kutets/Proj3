@@ -59,6 +59,16 @@ void listarPrioridade(ListaDeTarefas *lt, int prioridade) {
     }
   }
 }
+//Função para listar tarefas com um estado específico
+void listarEstado(ListaDeTarefas *lt, EstadoTarefa estado) {
+  printf("Tarefas com estado %d:\n", (int)estado);
+  for (int i = 0; i < lt->qtd; i++) {
+    if (lt->tarefas[i].estado == estado) {
+      printTarefa(&(lt->tarefas[i]));
+      printf("\n");
+    }
+  }
+}
 
 
 
