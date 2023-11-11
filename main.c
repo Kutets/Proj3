@@ -45,8 +45,11 @@ int main() {
       case 3:
         listarTarefas(lista);
         break;
-      case 4;
-        
+      case 4:
+        printf("Detalhes da tarefa antes da edição:\n");
+        editarTarefa(&lista, 0);
+        salvarLista(lista, "tarefas.bin");
+        break;
       case 5:
         sair = 1;
         break;
