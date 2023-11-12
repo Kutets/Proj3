@@ -28,7 +28,6 @@ Print todas as tarefas: Imprime todas as tarefas na lista.
 Print por Estado: Imprime tarefas com base no estado (Concluído, Em Andamento, Não Concluído).
 Editar Tarefas: Permite editar uma tarefa existente.
 Print por Categoria: Imprime tarefas com base na categoria especificada.
-Contribuições
-Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas (issues) e enviar pull requests para melhorar o projeto.
+
 
 Este README básico fornece uma visão geral do projeto, instruções para compilar e executar, e destaca as principais funcionalidades. Lembre-se de ajustar os detalhes conforme necessário para melhor refletir o seu projeto.
